@@ -23,7 +23,6 @@ public class UsuarioService {
         this.generadorId = 1L; 
     }
 
-    // HU-USR-01 – Listar usuarios
     public void listarUsuarios() {
         boolean hayRegistros = false;
         for (Usuario u : usuarios) {
@@ -38,7 +37,6 @@ public class UsuarioService {
         }
     }
 
-    // HU-USR-02 – Crear usuario
     public void crearUsuario(String nombre, String apellido, String mail, String celular, 
                              String contrasenia, Rol rol) throws ValidacionException {
         
@@ -46,7 +44,7 @@ public class UsuarioService {
             throw new ValidacionException("Error: El mail no puede estar vacío.");
         }
         
-        // Validar unicidad del mail
+
         validarMailUnico(mail, null);
 
         Usuario nuevoUsuario = new Usuario(generadorId++, nombre, apellido, mail, celular, contrasenia, rol);
@@ -54,7 +52,6 @@ public class UsuarioService {
         System.out.println("Usuario creado con éxito. ID asignado: " + nuevoUsuario.getId());
     }
 
-    // Método auxiliar interno para buscar por ID
     public Usuario buscarPorId(Long id) throws EntidadNoEncontradaException {
         for (Usuario u : usuarios) {
             if (u.getId().equals(id) && !u.isEliminado()) {
@@ -64,12 +61,11 @@ public class UsuarioService {
         throw new EntidadNoEncontradaException("Error: No se encontró un usuario activo con el ID " + id);
     }
 
-    // Método auxiliar para validar si el mail ya existe (ignora al propio usuario si se está editando)
     private void validarMailUnico(String mail, Long idUsuarioExcluido) throws ValidacionException {
         for (Usuario u : usuarios) {
-            // Si no está eliminado y el mail coincide
+
             if (!u.isEliminado() && u.getMail().equalsIgnoreCase(mail)) {
-                // Si estamos creando (idUsuarioExcluido es null) o editando (el ID es distinto al que editamos)
+
                 if (idUsuarioExcluido == null || !u.getId().equals(idUsuarioExcluido)) {
                     throw new ValidacionException("Error: El mail '" + mail + "' ya se encuentra registrado.");
                 }
@@ -77,7 +73,7 @@ public class UsuarioService {
         }
     }
 
-    // HU-USR-03 – Editar usuario
+
     public void editarUsuario(Long id, String nuevoNombre, String nuevoApellido, String nuevoMail, 
                               String nuevoCelular, String nuevaContrasenia, Rol nuevoRol) 
                               throws EntidadNoEncontradaException, ValidacionException {
@@ -91,7 +87,6 @@ public class UsuarioService {
             usuario.setApellido(nuevoApellido);
         }
         if (nuevoMail != null && !nuevoMail.trim().isEmpty()) {
-            // Validamos que el nuevo mail no lo esté usando otro usuario
             validarMailUnico(nuevoMail, id);
             usuario.setMail(nuevoMail);
         }
@@ -108,7 +103,7 @@ public class UsuarioService {
         System.out.println("Usuario actualizado correctamente.");
     }
 
-    // HU-USR-04 – Eliminar usuario (baja lógica)
+
     public void eliminarUsuario(Long id) throws EntidadNoEncontradaException {
         Usuario usuario = buscarPorId(id);
         usuario.setEliminado(true); 

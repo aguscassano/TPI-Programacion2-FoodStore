@@ -108,7 +108,7 @@ public class ProductoService {
 
     public void eliminarProducto(Long id) throws EntidadNoEncontradaException {
         Producto producto = buscarPorId(id);
-        producto.setEliminado(true); // Soft delete
+        producto.setEliminado(true);
         System.out.println("Producto eliminado del catalogo");
     }
 
