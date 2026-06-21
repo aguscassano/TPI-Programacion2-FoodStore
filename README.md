@@ -7,7 +7,7 @@ Se trata de una aplicación de consola en Java basada fuertemente en los pilares
 - **Institución:** Universidad Tecnológica Nacional (UTN)
 - **Carrera:** Tecnicatura en Programación
 - **Materia:** Programación 2
-- **Alumno:** Agustín
+- **Alumno:** Agustín Cassano
 
 ##  Entregables
 
